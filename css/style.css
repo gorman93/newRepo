@@ -14,47 +14,8 @@ body {
     max-width: 1280px;
     width: 100%;
     min-height: 100vh;
-    background: #4D0078;
+    background: transparent;
     margin: auto;
-}
-
-.header {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    padding: 25px;
-    box-sizing: border-box;
-}
-
-.logo {
-    width: 249px;
-    height: 45px;
-}
-
-.titleContainer {
-    position: relative;
-    max-width: 860px;
-    min-width: 500px;
-    width: 100%;
-    height: 98px;
-    top: 40px;
-    margin: auto;
-    background: #EDEDED;
-    display: flex;
-}
-
-.title {
-    margin: auto;
-    width: 760px;
-    height: 61px;
-    font-family: 'Inconsolata LGC';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 42px;
-    line-height: 61px;
-    text-align: center;
-    color: #000000;
 }
 
 .listContainer {
@@ -86,4 +47,10 @@ body {
     margin: 0 5px;
     max-width: 336px;
     word-wrap: break-word;
+}
+
+@media screen and (max-width: 782px) {
+    .listContainer {
+        justify-content: center;
+    }
 }
