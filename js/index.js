@@ -1,18 +1,24 @@
-function getData () {
+function getSearch() {
+    if(window.location.search) {
+        return window.location.search;
+    }
+    return "?event_id=63005&case_id=71479&checkpoints=108984";
+}
+
+function queryToJSON() {
+    var search = getSearch().substring(1);
+    return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+}
+
+function getData() {
     return new Promise((resolve, reject) => {
         var baseUrl = "https://leadersofadmin.ru/api/v1/statistics/event/teams/points";
-        var defaultSearch = "?event_id=63005&case_id=71479&checkpoints=108984";
-        var url;
-        if(window.location.search) {
-            url = baseUrl + window.location.search;
-        } else {
-            url = baseUrl + defaultSearch;
-        }
+        var url = baseUrl + getSearch();
         fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "************************"
+                "Authorization": "bearer GxKr9jWBM7pHe3Y5.51vYVjQQ1.TwAXGNQz.x42EnUC"
             },
         })
         .then(function(response) {
@@ -61,9 +67,18 @@ function paintInUI(teams) {
 window.onload = function () {
     getData()
     .then(function(result) {
-        var teams;
+        var teams, limit;
+        var queryObj = queryToJSON();
         if(result.teams) {
             teams = result.teams.sort((teamA, teamB) => teamB.points.total - teamA.points.total);
+            try {
+                limit = Number(queryObj.limit);
+            } catch {
+                limit = 0;
+            }
+            if(limit) {
+                teams = teams.splice(0, limit);
+            }
         } else {
             teams = [];
         }
