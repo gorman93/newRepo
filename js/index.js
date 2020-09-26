@@ -69,8 +69,8 @@ window.onload = function () {
     .then(function(result) {
         var teams, limit;
         var queryObj = queryToJSON();
-        if(result.teams) {
-            teams = result.teams.sort((teamA, teamB) => teamB.points.total - teamA.points.total);
+        if(result) {
+            teams = result.sort((teamA, teamB) => teamB.points.total - teamA.points.total);
             try {
                 limit = Number(queryObj.limit);
             } catch {
